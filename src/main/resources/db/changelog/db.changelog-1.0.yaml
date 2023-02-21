@@ -1,0 +1,184 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.1
+      author: rahimzadaN
+      changes:
+        - createTable:
+            tableName: departments
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 1.0.2
+      author: rahimzadaN
+      changes:
+        - createTable:
+            tableName: project_positions
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: position_start_date
+                  type: date
+              - column:
+                  name: position_end_date
+                  type: date
+              - column:
+                  name: position_title
+                  type: varchar(255)
+              - column:
+                  name: occupation
+                  type: varchar(255)
+              - column:
+                  name: project_id
+                  type: bigint
+              - column:
+                  name: user_id
+                  type: bigint
+
+  - changeSet:
+      id: 1.0.3
+      author: rahimzadaN
+      changes:
+        - createTable:
+            tableName: projects
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: date
+
+  - changeSet:
+      id: 1.0.4
+      author: rahimzadaN
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+              - column:
+                  name: first_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(120)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: job_title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: department_id
+                  type: bigint
+
+  - changeSet:
+      author: rahimzadaN
+      id: 1.0.5
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_user_department
+            referencedColumnNames: id
+            referencedTableName: departments
+            baseColumnNames: department_id
+            baseTableName: users
+
+  - changeSet:
+      author: rahimzadaN
+      id: 1.0.6
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_project_project_position
+            referencedColumnNames: id
+            referencedTableName: projects
+            baseColumnNames: project_id
+            baseTableName: project_positions
+
+  - changeSet:
+      author: rahimzadaN
+      id: 1.0.7
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_user_project_position
+            referencedColumnNames: id
+            referencedTableName: users
+            baseColumnNames: user_id
+            baseTableName: project_positions
+            deleteCascade: true
+  - changeSet:
+      id: 1.0.8
+      author: rahimzadaN
+      changes:
+        - createTable:
+            tableName: reports
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: date
+              - column:
+                  name: file_data
+                  type: BYTEA
+              - column:
+                  name: type
+                  type: varchar(255)

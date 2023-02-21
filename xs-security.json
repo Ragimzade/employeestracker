@@ -1,0 +1,36 @@
+{
+  "xsappname": "employees-tracker",
+  "tenant-mode": "dedicated",
+  "oauth2-configuration": {
+    "token-validity": 86400,
+    "refresh-token-validity": 2592000,
+    "redirect-uris": [
+      "https://approuter-nice-cassowary-ls.cfapps.us10-001.hana.ondemand.com/login/callback**"
+    ]
+  },
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.read",
+      "description": "Role to read data"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "viewer",
+      "description": "Viewer Role",
+      "scope-references": [
+        "$XSAPPNAME.read"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "employeeReadRoleCollections",
+      "description": "Employee Role Collection",
+      "role-template-references": [
+        "$XSAPPNAME.viewer"
+      ]
+    }
+  ]
+}
+
